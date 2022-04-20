@@ -53,6 +53,58 @@ public class Curso
         }
     }
     
+    void adicionarProfessor(String nomeProfessor)
+    {
+        if(numeroDeProfessores < MAX) // verifica se o número máximo de professores no curso já foi atingido
+        {
+            boolean achou = false;
+            
+            for(int professor = 0; professor < numeroDeProfessores; professor++)
+            {
+                if(professores[professor] == nomeProfessor) // verifica se este professor já foi adicionado ao curso
+                {
+                    System.out.println("O professor já foi adicionado a este curso! Assim, não será colocado no vetor de professores do curso novamente.");
+                    
+                    achou = true;
+                    
+                    break;
+                }
+            }
+            
+            if(!achou) // se não foi adicionado ainda
+            {
+                professores[numeroDeProfessores] = nomeProfessor; // adiciona o professor ao vetor de professores
+                numeroDeProfessores++;
+            }
+        }
+    }
+    
+    void adicionarDisciplina(String nomeDisciplina)
+    {
+        if(numeroDeDisciplinas < MAX) // verifica se o número máximo de disciplinas no curso já foi atingido
+        {
+            boolean achou = false;
+            
+            for(int disciplina = 0; disciplina < numeroDeDisciplinas; disciplina++)
+            {
+                if(disciplinas[disciplina] == nomeDisciplina) // verifica se esta disciplina já foi adicionada ao curso
+                {
+                    System.out.println("A disciplina já foi adicionada a este curso! Assim, não será colocada no vetor de disciplinas do curso novamente.");
+                    
+                    achou = true;
+                    
+                    break;
+                }
+            }
+            
+            if(!achou) // se não foi adicionada ainda
+            {
+                disciplinas[numeroDeDisciplinas] = nomeDisciplina; // adiciona a disciplina ao vetor de disciplinas
+                numeroDeDisciplinas++;
+            }
+        }
+    }
+    
     void adicionarTurma(Turma novaTurma)
     {
         if(numeroDeTurmas < MAX) // verifica se o número máximo de turmas no curso já foi atingido
@@ -76,11 +128,9 @@ public class Curso
                 turmas[numeroDeTurmas] = novaTurma; // adiciona o objeto novaTurma no vetor de turmas
                 numeroDeTurmas++;
                 
-                professores[numeroDeProfessores] = novaTurma.professor; // adiciona o professor dessa novaTurma ao vetor de professores
-                numeroDeProfessores++;
+                adicionarProfessor(novaTurma.professor); // adiciona o professor dessa novaTurma ao vetor de professores
                 
-                disciplinas[numeroDeDisciplinas] = novaTurma.disciplina; // adiciona a disciplina dessa novaTurma ao vetor de disciplinas
-                numeroDeDisciplinas++;
+                adicionarDisciplina(novaTurma.disciplina); // adiciona a disciplina dessa novaTurma ao vetor de disciplinas
                 
                 for(int aluno = 0; aluno < novaTurma.numeroDeAlunos; aluno++) // vai adicionando os alunos da novaTurma ao vetor de alunos
                 {

@@ -1,12 +1,15 @@
 #BlueJ class context
 comment0.target=Aluno
-comment0.text=\r\n\ Escreva\ a\ descri\u00E7\u00E3o\ da\ classe\ Aluno\ aqui.\r\n\ \r\n\ @author\ (seu\ nome)\ \r\n\ @version\ (n\u00FAmero\ de\ vers\u00E3o\ ou\ data)\r\n
 comment1.params=novoNome
 comment1.target=void\ alterarNome(java.lang.String)
-comment2.params=diaNasc\ mesNasc\ anoNasc
-comment2.target=void\ alterarDataDeNascimento(int,\ int,\ int)
-comment3.params=
-comment3.target=void\ calcularMedia()
-comment4.params=
-comment4.target=void\ calcularIdade()
-numComments=5
+comment2.params=novoStatus
+comment2.target=void\ alterarStatus(char)
+comment3.params=diaNascimento\ mesNascimento\ anoNascimento
+comment3.target=void\ alterarDataDeNascimento(int,\ int,\ int)
+comment4.params=novaNota
+comment4.target=void\ adicionarNota(double)
+comment5.params=
+comment5.target=void\ calcularMediaAritmetica()
+comment6.params=diaAtual\ mesAtual\ anoAtual
+comment6.target=void\ calcularIdade(int,\ int,\ int)
+numComments=7

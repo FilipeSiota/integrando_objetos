@@ -1,24 +1,40 @@
 
 public class Turma
 {
-    int MAX = 30; // número máximo de alunos para uma turma
+    private int MAX = 30; // número máximo de alunos para uma turma
     
-    Aluno[] alunos = new Aluno[MAX]; // cria um vetor de objetos instanciados a classe Aluno
-    int numeroDeAlunos = 0;
-    String professor;
-    String disciplina;
+    private Aluno[] alunos = new Aluno[MAX]; // cria um vetor de objetos instanciados a classe Aluno
+    private int numeroDeAlunos = 0;
+    private String professor;
+    private String disciplina;
     
-    void alterarProfessor(String nomeProfessor)
+    public Turma(String nomeDisciplina, String nomeProfessor) // método construtor
     {
-        professor = nomeProfessor;
+        setDisciplina(nomeDisciplina);
+        setProfessor(nomeProfessor);
     }
     
-    void alterarDisciplina(String nomeDisciplina)
+    public void setProfessor(String nome) // altera o nome do professor
     {
-        disciplina = nomeDisciplina;
+        professor = nome;
     }
     
-    void matricularAluno(Aluno novoAluno)
+    public String getProfessor()
+    {
+        return professor;
+    }
+    
+    public void setDisciplina(String nome) // altera o nome da disciplina
+    {
+        disciplina = nome;
+    }
+    
+    public String getDisciplina()
+    {
+        return disciplina;
+    }
+    
+    public void matricularAluno(Aluno novoAluno)
     {
         if(numeroDeAlunos < MAX) // verifica se o número total de alunos na turma já foi atingido
         {
@@ -49,7 +65,17 @@ public class Turma
         }
     }
     
-    void mostrarAlunosENotas()
+    public int getNumeroDeAlunos()
+    {
+        return numeroDeAlunos;
+    }
+    
+    public Aluno getAluno(int posicao)
+    {
+        return alunos[posicao];
+    }
+    
+    public void mostrarAlunosENotas()
     {
         if (numeroDeAlunos > 0) // se houver algum aluno
         {
@@ -59,11 +85,11 @@ public class Turma
             for(int aluno = 0; aluno < numeroDeAlunos; aluno++) // percorre o vetor de alunos, no qual cada posição é um objeto instanciado a classe Aluno
             {
                 System.out.println("==========================");
-                System.out.println("Nome: " + alunos[aluno].nome);
+                System.out.println("Nome: " + alunos[aluno].getNome());
                 
-                for(int nota = 0; nota < alunos[aluno].numeroDeNotas; nota++) // percorre o vetor de notas do objeto em questão instanciado a classe Aluno
+                for(int nota = 0; nota < alunos[aluno].getNumeroDeNotas(); nota++) // percorre o vetor de notas do objeto em questão instanciado a classe Aluno
                 {
-                    System.out.println("Nota " + (nota + 1) + ": " + alunos[aluno].notas[nota]);
+                    System.out.println("Nota " + (nota + 1) + ": " + alunos[aluno].getNota(nota));
                 }
             }
         }

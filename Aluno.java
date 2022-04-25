@@ -1,36 +1,61 @@
 
 public class Aluno
 {
-    int MAX = 5; // número máximo de notas
+    private int MAX = 5; // número máximo de notas
     
-    String nome;
-    char status = 'M';
-    DataDeNascimento dataNascimento = new DataDeNascimento();
-    double[] notas = new double[MAX];
-    int numeroDeNotas = 0;
+    private String nome;
+    private char status = 'M';
+    private DataDeNascimento dataNascimento = new DataDeNascimento();
+    private int idade;
+    private double[] notas = new double[MAX];
+    private int numeroDeNotas = 0;
     
-    void alterarNome(String novoNome)
+    public Aluno(String nome) // método construtor
     {
-        nome = novoNome;
+        setNome(nome);
     }
     
-    void alterarStatus(char novoStatus)
+    public void setNome(String nome) // altera o nome do aluno
     {
-        status = novoStatus;
+        this.nome = nome;
     }
     
-    void alterarDataDeNascimento(int diaNascimento, int mesNascimento, int anoNascimento)
+    public String getNome()
     {
-        dataNascimento.dia = diaNascimento;
-        dataNascimento.mes = mesNascimento;
-        dataNascimento.ano = anoNascimento;
+        return nome;
     }
     
-    void adicionarNota(double novaNota)
+    public void setStatus(char status) // altera o status do aluno
+    {
+        if(status == 'M' || status == 'm' ||
+           status == 'E' || status == 'e' ||
+           status == 'C' || status == 'c') // verifica se o status inserido é válido
+       {
+           this.status = status;
+       }
+       else
+       {
+           System.out.println("O valor inserido para STATUS é inválido! Tente colocar 'M' (MATRICULADO) ou 'E' (EGRESSO) ou 'C' (CANCELADO).");
+       }
+    }
+    
+    public char getStatus()
+    {
+        return status;
+    }
+    
+    public void setDataDeNascimento(int dia, int mes, int ano) // altera a data de nascimento do aluno
+    {
+        dataNascimento.setDia(dia);
+        dataNascimento.setMes(mes);
+        dataNascimento.setAno(ano);
+    }
+    
+    public void adicionarNota(double nota)
     {
         if(numeroDeNotas < MAX) // verifica se o número máximo de notas já foi atingido
         {
-            notas[numeroDeNotas] = novaNota; // adiciona a nota ao vetor notas
+            notas[numeroDeNotas] = nota; // adiciona a nota ao vetor notas
             
             numeroDeNotas++;
             
@@ -42,7 +67,17 @@ public class Aluno
         }
     }
     
-    void calcularMediaAritmetica()
+    public int getNumeroDeNotas()
+    {
+        return numeroDeNotas;
+    }
+    
+    public double getNota(int posicao)
+    {
+        return notas[posicao];
+    }
+    
+    public void calcularMediaAritmetica()
     {
         if(numeroDeNotas > 0) // se houver alguma nota
         {
@@ -63,21 +98,20 @@ public class Aluno
         }
     }
     
-    void calcularIdade(int diaAtual, int mesAtual, int anoAtual)
+    public void calcularIdade(int diaAtual, int mesAtual, int anoAtual)
     {
-        if(dataNascimento.ano > 0) // se houver data de nascimento cadastrada para o aluno
+        if(dataNascimento.getAno() > 0) // se houver data de nascimento cadastrada para o aluno
         {
-            int idade;
             int diasDataAtual = mesAtual * 30 + diaAtual; // transforma os meses e dias da data atual em dias
-            int diasDataNascimento = dataNascimento.mes * 30 + dataNascimento.dia; // transforma os meses e dias da data de nascimento em dias
+            int diasDataNascimento = dataNascimento.getMes() * 30 + dataNascimento.getAno(); // transforma os meses e dias da data de nascimento em dias
             
             if(diasDataAtual >= diasDataNascimento) // se a data atual em dias for maior ou igual a data de nascimento em dias, significa que o aluno já fez aniversário
             {
-                idade = anoAtual - dataNascimento.ano;
+                idade = anoAtual - dataNascimento.getAno();
             }
             else
             {
-                idade = anoAtual - dataNascimento.ano - 1; // senão, ainda não fez aniversário no ano atual
+                idade = anoAtual - dataNascimento.getAno() - 1; // senão, ainda não fez aniversário no ano atual
             }
             
             System.out.println("O aluno <" + nome + "> tem " + idade + " anos.");

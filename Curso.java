@@ -1,28 +1,34 @@
 
 public class Curso
 {
-    int MAX = 100; // determina um limite de tamanho para os vetores
+    private int MAX = 100; // determina um limite de tamanho para os vetores
     
-    String nome;
-    String coordenador;
-    Turma[] turmas = new Turma[MAX]; // cria um vetor de objetos instanciados a classe Turma
-    String[] professores = new String[MAX];
-    String[] disciplinas = new String[MAX];
-    Aluno[] egressos = new Aluno[MAX]; // cria um vetor de objetos instanciados a classe Aluno
-    Aluno[] alunos = new Aluno[MAX]; // cria um vetor de objetos instanciados a classe Aluno
-    int numeroDeTurmas = 0, numeroDeProfessores = 0, numeroDeDisciplinas = 0, numeroDeEgressos = 0, numeroDeAlunos = 0; // contadores
+    private String nome;
+    private String coordenador;
+    private Turma[] turmas = new Turma[MAX]; // cria um vetor de objetos instanciados a classe Turma
+    private String[] professores = new String[MAX];
+    private String[] disciplinas = new String[MAX];
+    private Aluno[] egressos = new Aluno[MAX]; // cria um vetor de objetos instanciados a classe Aluno
+    private Aluno[] alunos = new Aluno[MAX]; // cria um vetor de objetos instanciados a classe Aluno
+    private int numeroDeTurmas = 0, numeroDeProfessores = 0, numeroDeDisciplinas = 0, numeroDeEgressos = 0, numeroDeAlunos = 0; // contadores
     
-    void alterarNome(String novoNome)
+    public Curso(String nome, String nomeCoordenador) // método construtor
     {
-        nome = novoNome;
+        setNome(nome);
+        setCoordenador(nomeCoordenador);
     }
     
-    void alterarCoordenador(String nomeCoordenador)
+    public void setNome(String nome) // altera o nome do curso
     {
-        coordenador = nomeCoordenador;
+        this.nome = nome;
     }
     
-    void matricularAluno(Aluno novoAluno)
+    public void setCoordenador(String nome) // altera o nome do coordenador
+    {
+        coordenador = nome;
+    }
+    
+    public void matricularAluno(Aluno novoAluno)
     {
         if(numeroDeAlunos < MAX) // verifica se o número total de alunos na turma já foi atingido
         {
@@ -53,7 +59,7 @@ public class Curso
         }
     }
     
-    void adicionarProfessor(String nomeProfessor)
+    public void adicionarProfessor(String nomeProfessor)
     {
         if(numeroDeProfessores < MAX) // verifica se o número máximo de professores no curso já foi atingido
         {
@@ -79,7 +85,7 @@ public class Curso
         }
     }
     
-    void adicionarDisciplina(String nomeDisciplina)
+    public void adicionarDisciplina(String nomeDisciplina)
     {
         if(numeroDeDisciplinas < MAX) // verifica se o número máximo de disciplinas no curso já foi atingido
         {
@@ -105,7 +111,7 @@ public class Curso
         }
     }
     
-    void adicionarTurma(Turma novaTurma)
+    public void adicionarTurma(Turma novaTurma)
     {
         if(numeroDeTurmas < MAX) // verifica se o número máximo de turmas no curso já foi atingido
         {
@@ -128,17 +134,17 @@ public class Curso
                 turmas[numeroDeTurmas] = novaTurma; // adiciona o objeto novaTurma no vetor de turmas
                 numeroDeTurmas++;
                 
-                adicionarProfessor(novaTurma.professor); // adiciona o professor dessa novaTurma ao vetor de professores
+                adicionarProfessor(novaTurma.getProfessor()); // adiciona o professor dessa novaTurma ao vetor de professores
                 
-                adicionarDisciplina(novaTurma.disciplina); // adiciona a disciplina dessa novaTurma ao vetor de disciplinas
+                adicionarDisciplina(novaTurma.getDisciplina()); // adiciona a disciplina dessa novaTurma ao vetor de disciplinas
                 
-                for(int aluno = 0; aluno < novaTurma.numeroDeAlunos; aluno++) // vai adicionando os alunos da novaTurma ao vetor de alunos
+                for(int aluno = 0; aluno < novaTurma.getNumeroDeAlunos(); aluno++) // vai adicionando os alunos da novaTurma ao vetor de alunos
                 {
-                    matricularAluno(novaTurma.alunos[aluno]);
+                    matricularAluno(novaTurma.getAluno(aluno));
                     
-                    if(novaTurma.alunos[aluno].status == 'e' || novaTurma.alunos[aluno].status == 'E')
+                    if(novaTurma.getAluno(aluno).getStatus() == 'e' || novaTurma.getAluno(aluno).getStatus() == 'E')
                     {
-                        egressos[numeroDeEgressos] = novaTurma.alunos[aluno];
+                        egressos[numeroDeEgressos] = novaTurma.getAluno(aluno);
                         
                         numeroDeEgressos++;
                     }
@@ -151,7 +157,7 @@ public class Curso
         }
     }
     
-    void listarAlunos()
+    public void listarAlunos()
     {
         if(numeroDeAlunos > 0) // se houver algum aluno matriculado no curso
         {
@@ -161,9 +167,9 @@ public class Curso
             for(int aluno = 0; aluno < numeroDeAlunos;aluno++)
             {
                 System.out.println("==========================");
-                System.out.println("Nome: " + alunos[aluno].nome);
+                System.out.println("Nome: " + alunos[aluno].getNome());
                 
-                switch(alunos[aluno].status)
+                switch(alunos[aluno].getStatus())
                 {
                     case 'M':
                     case 'm':
@@ -191,7 +197,7 @@ public class Curso
         }
     }
     
-    void listarTurmas()
+    public void listarTurmas()
     {
         if(numeroDeTurmas > 0) // se houver alguma turma no curso
         {
@@ -201,13 +207,13 @@ public class Curso
             for(int turma = 0; turma < numeroDeTurmas; turma++)
             {
                 System.out.println("==========================");
-                System.out.println("Disciplina: " + turmas[turma].disciplina);
-                System.out.println("Professor: " + turmas[turma].professor);
+                System.out.println("Disciplina: " + turmas[turma].getDisciplina());
+                System.out.println("Professor: " + turmas[turma].getProfessor());
                 System.out.println("Alunos: ");
                 
-                for(int aluno = 0; aluno < turmas[turma].numeroDeAlunos; aluno++)
+                for(int aluno = 0; aluno < turmas[turma].getNumeroDeAlunos(); aluno++)
                 {
-                    System.out.println(">> " + turmas[turma].alunos[aluno].nome);
+                    System.out.println(">> " + turmas[turma].getAluno(aluno).getNome());
                 }
             }
         }
@@ -217,7 +223,7 @@ public class Curso
         }
     }
     
-    void listarProfessores()
+    public void listarProfessores()
     {
         if(numeroDeProfessores > 0) // se houver algum professor no curso
         {
@@ -236,7 +242,7 @@ public class Curso
         }
     }
     
-    void moverAlunoParaEgresso(Aluno alunoParaEgresso)
+    public void moverAlunoParaEgresso(Aluno alunoParaEgresso)
     {
         boolean achou = false;
         
@@ -246,12 +252,12 @@ public class Curso
             {
                 achou = true;
                 
-                alunoParaEgresso.status = 'E';
+                alunoParaEgresso.setStatus('E');
                 
                 egressos[numeroDeEgressos] = alunoParaEgresso; // além de ser adicionado ao vetor que consta os alunos egressos
                 numeroDeEgressos++;
                 
-                System.out.println("O status  do aluno <" + alunoParaEgresso.nome + "> foi alterado para EGRESSO com sucesso!");
+                System.out.println("O status  do aluno <" + alunoParaEgresso.getNome() + "> foi alterado para EGRESSO com sucesso!");
                 
                 break;
             }
@@ -263,7 +269,7 @@ public class Curso
         }
     }
     
-    void excluirAluno(Aluno alunoParaExclusao)
+    public void excluirAluno(Aluno alunoParaExclusao)
     {
         boolean achou = false;
         
@@ -272,26 +278,10 @@ public class Curso
             if(alunos[aluno] == alunoParaExclusao) // procura pelo aluno em questão
             {
                 achou = true;
-                
-                /*
-                for(int realoca = aluno; realoca < numeroDeAlunos; realoca++) // reorganiza o vetor
-                {
-                    if(realoca == numeroDeAlunos - 1)
-                    {
-                        alunos[realoca] = null; // sendo que a última posição do vetor acaba recebendo um valor nulo
-                    }
-                    else
-                    {
-                        alunos[realoca] = alunos[realoca + 1]; // trazendo os objetos uma posição para trás
-                    }
-                }
-                
-                numeroDeAlunos--;
-                */
                
-                alunos[aluno].status = 'C'; // troca o status do aluno para CANCELADO
+                alunos[aluno].setStatus('C'); // troca o status do aluno para CANCELADO
                 
-                System.out.println("O aluno <" + alunoParaExclusao.nome + "> foi excluído do curso <" + nome + "> com sucesso!");
+                System.out.println("O aluno <" + alunoParaExclusao.getNome() + "> foi excluído do curso <" + nome + "> com sucesso!");
                 
                 break;
             }
